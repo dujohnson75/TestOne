@@ -1,0 +1,276 @@
+1. IOException
+java
+import java.io.*;
+import java.util.Scanner;
+
+public class IOExceptionExample {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the file name to read: ");
+        String fileName = scanner.nextLine();
+
+        try {
+            // Attempt to read the file
+            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            // Read and print the first line of the file
+            System.out.println(reader.readLine());
+        } catch (IOException e) {
+            // Handle the exception if file reading fails
+            System.out.println("IOException caught: " + e.getMessage());
+        } finally {
+            // Close the scanner resource
+            scanner.close();
+        }
+    }
+}
+2. FileNotFoundException
+java
+import java.io.*;
+import java.util.Scanner;
+
+public class FileNotFoundExceptionExample {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the file name to open: ");
+        String fileName = scanner.nextLine();
+
+        try {
+            // Attempt to open the file
+            FileInputStream file = new FileInputStream(fileName);
+        } catch (FileNotFoundException e) {
+            // Handle the exception if the file is not found
+            System.out.println("FileNotFoundException caught: " + e.getMessage());
+        } finally {
+            // Close the scanner resource
+            scanner.close();
+        }
+    }
+}
+3. EOFException
+java
+import java.io.*;
+import java.util.Scanner;
+
+public class EOFExceptionExample {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the file name to read: ");
+        String fileName = scanner.nextLine();
+
+        try (DataInputStream dis = new DataInputStream(new FileInputStream(fileName))) {
+            // Read and print the data from the file until EOFException is thrown
+            while (true) {
+                System.out.println(dis.readUTF());
+            }
+        } catch (EOFException e) {
+            // Handle the EOFException when end of file is reached
+            System.out.println("EOFException caught: " + e.getMessage());
+        } catch (IOException e) {
+            // Handle other IOExceptions
+            System.out.println("IOException caught: " + e.getMessage());
+        } finally {
+            // Close the scanner resource
+            scanner.close();
+        }
+    }
+}
+4. SQLException
+java
+import java.sql.*;
+import java.util.Scanner;
+
+public class SQLExceptionExample {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the database URL: ");
+        String dbURL = scanner.nextLine();
+        System.out.print("Enter the username: ");
+        String username = scanner.nextLine();
+        System.out.print("Enter the password: ");
+        String password = scanner.nextLine();
+
+        try {
+            // Attempt to connect to the database
+            Connection conn = DriverManager.getConnection(dbURL, username, password);
+        } catch (SQLException e) {
+            // Handle the SQLException when the connection fails
+            System.out.println("SQLException caught: " + e.getMessage());
+        } finally {
+            // Close the scanner resource
+            scanner.close();
+        }
+    }
+}
+5. ClassNotFoundException
+java
+import java.util.Scanner;
+
+public class ClassNotFoundExceptionExample {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the class name to load: ");
+        String className = scanner.nextLine();
+
+        try {
+            // Attempt to load the class
+            Class.forName(className);
+        } catch (ClassNotFoundException e) {
+            // Handle the exception if the class is not found
+            System.out.println("ClassNotFoundException caught: " + e.getMessage());
+        } finally {
+            // Close the scanner resource
+            scanner.close();
+        }
+    }
+}
+6. ArithmeticException
+java
+import java.util.Scanner;
+
+public class ArithmeticExceptionExample {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter two numbers to divide (numerator and denominator): ");
+        int numerator = scanner.nextInt();
+        int denominator = scanner.nextInt();
+
+        try {
+            // Perform division
+            int result = numerator / denominator;
+            System.out.println("Result: " + result);
+        } catch (ArithmeticException e) {
+            // Handle division by zero error
+            System.out.println("ArithmeticException caught: " + e.getMessage());
+        } finally {
+            // Close the scanner resource
+            scanner.close();
+        }
+    }
+}
+7. NullPointerException
+java
+import java.util.Scanner;
+
+public class NullPointerExceptionExample {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a string (leave blank to simulate null): ");
+        String str = scanner.nextLine();
+
+        if (str.isEmpty()) {
+            str = null;
+        }
+
+        try {
+            // Attempt to get the length of the string
+            System.out.println("Length of the string: " + str.length());
+        } catch (NullPointerException e) {
+            // Handle the NullPointerException if str is null
+            System.out.println("NullPointerException caught: " + e.getMessage());
+        } finally {
+            // Close the scanner resource
+            scanner.close();
+        }
+    }
+}
+8. ArrayIndexOutOfBoundsException
+java
+import java.util.Scanner;
+
+public class ArrayIndexOutOfBoundsExceptionExample {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int[] arr = new int[5];
+
+        System.out.print("Enter an array index to access: ");
+        int index = scanner.nextInt();
+
+        try {
+            // Access the array element at the specified index
+            int value = arr[index];
+            System.out.println("Value at index " + index + ": " + value);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            // Handle the exception if the index is out of bounds
+            System.out.println("ArrayIndexOutOfBoundsException caught: " + e.getMessage());
+        } finally {
+            // Close the scanner resource
+            scanner.close();
+        }
+    }
+}
+9. ClassCastException
+java
+import java.util.Scanner;
+
+public class ClassCastExceptionExample {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        Object x = new Integer(0);
+        System.out.print("Enter the type to cast to (e.g., String): ");
+        String type = scanner.nextLine();
+
+        try {
+            // Attempt to cast the object to the specified type
+            if ("String".equals(type)) {
+                String y = (String) x;
+            }
+        } catch (ClassCastException e) {
+            // Handle the ClassCastException if the cast is invalid
+            System.out.println("ClassCastException caught: " + e.getMessage());
+        } finally {
+            // Close the scanner resource
+            scanner.close();
+        }
+    }
+}
+10. IllegalArgumentException
+java
+import java.util.Scanner;
+
+public class IllegalArgumentExceptionExample {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the number of milliseconds to sleep: ");
+        int milliseconds = scanner.nextInt();
+
+        try {
+            // Attempt to sleep for the specified number of milliseconds
+            Thread.sleep(milliseconds);
+        } catch (IllegalArgumentException e) {
+            // Handle the IllegalArgumentException if the argument is invalid
+            System.out.println("IllegalArgumentException caught: " + e.getMessage());
+        } catch (InterruptedException e) {
+            // Handle the InterruptedException if the thread is interrupted
+            e.printStackTrace();
+        } finally {
+            // Close the scanner resource
+            scanner.close();
+        }
+    }
+}
+11. NumberFormatException
+java
+import java.util.Scanner;
+
+public class NumberFormatExceptionExample {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a string to convert to a number: ");
+        String input = scanner.nextLine();
+
+        try {
+            // Attempt to convert the string to a number
+            int number = Integer.parseInt(input);
+            System.out.println("Converted number: " + number);
+        } catch (NumberFormatException e) {
+            // Handle the NumberFormatException if the string is not a valid number
+            System.out.println("NumberFormatException caught: " + e.getMessage());
+        } finally {
+            // Close the scanner resource
+            scanner.close();
+        }
+    }
+}
+These examples now include try-catch blocks (and finally where needed) along with comments to clarify the purpose of each block of code. This should help you understand how to handle exceptions in a clear and organized manner. If you have any more questions or need further assistance, feel free to ask!
+
